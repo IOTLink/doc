@@ -1,6 +1,11 @@
 
 
 
+docker fabric
+1.0.0的官方镜像在这里：https://hub.docker.com/r/hyperledger/
+
+
+
 
 tar -xzf  apache-maven-3.3.9-bin.tar.gz  -C ./tmp   --strip-components 1
 
