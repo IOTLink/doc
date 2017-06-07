@@ -1,0 +1,48 @@
+token 是目前互联网公司为解决session 在服务端占用内存资源过多，易被复制提出的解决方案：
+
+
+角色：
+server    <-------------------------------------->client
+                                           《-----req
+                                             注册申请appid、appkey
+返回appid、appkey
+
+                                             《----申请token
+                                            1: appid + MD5(appid + appkey) 
+                                            2: 客户端申请时的UTC时间
+                                            3:appkey只要注册是申请给client，之后不在网络中传输
+                                            4：为防止知道appid 猜测MD5的appkey漏洞，可以使用server的公钥加密（appid+appkey），只有server有私钥，
+                                               可以查解密到appkey，这样解决MD5攻击，
+
+                                            
+
+server端处理申请token请求：
+从数据库中获取appid的appkey：
+1：验证是否是appid自己申请token
+2：记录client申请时，server端的UTC时间 （可以不用记录）
+
+假如设置token过期时间是60s
+假如有秘钥key1、 key2 、key3 。。。。
+秘钥keyN（appid：申请时的UTC时间：申请时UTC+过期时间60s） + appid + N（秘钥数字） = token 返回客户端
+
+
+                                                                   client业务需求，附带token信息：
+
+server验证token：
+获取末尾数字N，使用秘钥keyN解密：秘钥keyN（appid：申请时的UTC时间：申请时UTC+过期时间60s） 字符串
+验证appid是否是token末尾的appid。（验证成功，则是自己签发的token信息）
+
+验证时间是否过期
+
+
+整个设计只有验证是否appid自己申请token时获取数据库中的appkey，
+client发送给server要验证的token，判断token是否是server签发，并且是否是有效时间内的token信息；
+
+
+
+
+
+
+
+
+

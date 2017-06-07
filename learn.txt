@@ -1,6 +1,16 @@
 
 
 
+查找删除文件：
+find / -name "*.mp3" |xargs rm -rf
+
+
+
+删除所有的docker镜像：
+docker rmi $(docker images -q)
+或者强制删除：
+docker rmi -f $(docker images -q)
+
 docker fabric
 1.0.0的官方镜像在这里：https://hub.docker.com/r/hyperledger/
 
