@@ -1,5 +1,10 @@
 
 
+修改网卡地址：
+/sbin/ifconfig eth0 hw ether 00:0C:29:36:97:20
+使用lentern继续翻墙
+
+
 
 查找删除文件：
 find / -name "*.mp3" |xargs rm -rf
@@ -47,6 +52,11 @@ go build  -gcflags "-N -l"  -o appca fabric_ca.go base_setup.go
 sudo curl -L https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
 
 sudo chmod +x /usr//bin/docker-compose
+
+或者：
+curl -L https://github.com/docker/compose/releases/download/{docker-compose.version}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
 
 
 下载版本兼容的docker 程序：
