@@ -1,0 +1,19 @@
+liuhy@liuhy ~ $ docker images
+REPOSITORY                    TAG                             IMAGE ID            CREATED             SIZE
+yeasy/hyperledger-fabric-ca   latest                          349cdeeb97a5        30 hours ago        844.8 MB
+wandatech/fabric-ca           0.7.0                           e9f3e1aff06c        4 months ago        183.6 MB
+wandatech/fabric-orderer      0.7.0                           b04fb9d5e225        4 months ago        178.6 MB
+wandatech/fabric-peer         0.7.0                           7d7c9807412d        4 months ago        182.5 MB
+hyperledger/fabric-ccenv      latest                          05dbf5bc5701        4 months ago        1.294 GB
+hyperledger/fabric-ccenv      x86_64-0.7.0-snapshot-c7b3fe0   05dbf5bc5701        4 months ago        1.294 GB
+wandatech/fabric-ccenv        0.7.0                           05dbf5bc5701        4 months ago        1.294 GB
+liuhy@liuhy ~ $ 
+
+
+make linter后多个三个镜像：
+liuhy@liuhy ~ $ docker images
+REPOSITORY                     TAG                             IMAGE ID            CREATED             SIZE
+hyperledger/fabric-buildenv    latest                          081989d2ccf7        21 seconds ago      1.324 GB
+hyperledger/fabric-buildenv    x86_64-1.0.0-alpha              081989d2ccf7        21 seconds ago      1.324 GB
+hyperledger/fabric-baseimage   x86_64-0.3.0                    f4751a503f02        4 months ago        1.271 GB
+

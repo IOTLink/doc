@@ -1,7 +1,5 @@
 
 
-
-
 tar -xzf  apache-maven-3.3.9-bin.tar.gz  -C ./tmp   --strip-components 1
 
 
@@ -10,105 +8,9 @@ tar -xzf  apache-maven-3.3.9-bin.tar.gz  -C ./tmp   --strip-components 1
 journalctl -xn' for details.
 
 
+
+
 protoc --go_out=plugins=grpc:./gen-go taochees.proto
-
-启动ca：
-docker run -it  -p 8854:7054 yeasy/hyperledger-fabric-ca:latest  
-
-
-进入容器：
-docker exec -it vigilant_allen  /bin/bash
-
-
-docker run -d -it  -p 8054:7054 yeasy/hyperledger-fabric-ca   /bin/bash
-
-
-golang调试执行：
-go build  -gcflags "-N -l"  -o appca fabric_ca.go base_setup.go 
-
-
-
-升级docker-compose:
-sudo curl -L https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
-
-sudo chmod +x /usr//bin/docker-compose
-
-
-下载版本兼容的docker 程序：
-wget -qO- https://get.docker.com/ | sh
-
-Docker安装完启动时提示Failed to start docker.service: Unit docker.service is masked.
-Ubutntu安装完Docker后，执行
-
-sudo service docker start
-1
-1
-提示
-
-Failed to start docker.service: Unit docker.service is masked.
-解决方案：
-
-执行如下三条指令
-
-systemctl unmask docker.service
-systemctl unmask docker.socket
-systemctl start docker.service
-
-
-
-____________________________________
-
-
-
-
-编译fabric镜像：
-
-http://blog.csdn.net/yeasy/article/details/53609814
-http://www.tuicool.com/articles/iaYBreM
-
-缺失的库，可以使用go get 获取bin目录下的二进制文件
-
-1：
-安装 go tools
-执行
-$ make gotools
-
-
-
-go tools工具有： 建立目录bin 手动
-liuhy@liuhy ~/work1 $ ll src/github.com/hyperledger/fabric/gotools/build/gopath/bin
-total 47360
-drwxr-xr-x 2 liuhy liuhy    4096 Jun  2 10:41 ./
-drwxr-xr-x 5 liuhy liuhy    4096 Jun  2 10:20 ../
--rwxr-xr-x 1 liuhy liuhy 9641410 Jun  2 10:26 ginkgo*
--rwxr-xr-x 1 liuhy liuhy 4171098 Jun  2 10:40 gocov*
--rwxr-xr-x 1 liuhy liuhy 2499648 Jun  2 10:40 gocov-xml*
--rwxr-xr-x 1 liuhy liuhy 4749479 Jun  2 10:25 goimports*
--rwxr-xr-x 1 liuhy liuhy 5452331 Jun  2 10:20 golint*
--rwxr-xr-x 1 liuhy liuhy 9373500 Jun  2 10:20 govendor*
--rwxr-xr-x 1 liuhy liuhy 8465309 Jun  2 10:41 misspell*
--rwxr-xr-x 1 liuhy liuhy 4116778 Jun  2 10:25 protoc-gen-go*
-liuhy@liuhy ~/work1 $ 
-
-
-
-2：
-语法格式检查
-执行
-$ make linter
-cp -r gotools/build/gopath/bin ./build/docker/gotools/
-
-
-换成docker中的绝对路径： 解决找不到goimports
-/opt/gopath/src/github.com/hyperledger/fabric/gotools/build/gopath/bin/goimports
-
-3：
-编译 peer
-执行
-$ make peer
-————————————————————————————————————————————————————————————————
-
-
 
 启动ca：
 docker run -it  -p 8854:7054 yeasy/hyperledger-fabric-ca:latest  

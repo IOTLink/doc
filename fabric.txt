@@ -1,0 +1,63 @@
+fabric 学习：
+fabric-ca 没有配置root ca父ca时，使用命令：
+fabric-ca-server start -b <admin>:<adminpw>
+会产生一个自签名的：
+ ca-cert.pem and ca-key.pem 
+假如他们不存在，则产生，并产生配置文件；
+-------------------------------------
+
+registry.maxenrollments 设置0 则不允许申请
+设置-1 无限制
+
+
+
+
+Cryptogen :
+ ./bin/cryptogen generate --config=./crypto-config.yaml
+cryptogen 是做什么的？
+定义网络拓扑，和网络部件
+每个组织都有唯一的root ca 证书ca-cert 绑定部件是属于peer还是orderer组织的
+
+
+交易和通信被fabric的an entity’s private key (keystore) 签名，他会验证 
+verified by means of a public key (signcerts) 公钥信息
+
+count 选项被设置Organization 组织内有多少个peer
+
+
+http://www.jianshu.com/p/b4674d3f7ebd
+而在1.0版中是由排序者（Orderer）完成共识功能，其文档中定义了Solo、Kafka和PBFT三个排序者。但从1.0的代码来看，其使用的却是SBFT共识算法，还是类似PBFT的三阶段提交方式。
+
+
+
+abric1.0会把原来0.6验证节点的职责切分成两部分：背书节点和共识服务
+由背书节点进行交易验证和背书
+验证功能的共识系统变成了纯技术的共识服务，同具体的chaincode业务执行无关。
+Fabric1.0基于通道对所有交易消息进行排序并全序广播相关节点
+
+
+http://colorbit.com.cn/forum.php?mod=viewthread&tid=7514
+在Fabric1.0中会提供三种共识时序服务：solo, kafka, BFT。solo应该是一种部署在单个节点上的简单时序服务，主要用于开发测试。kafka是一种支持多通道分区的集群时序服务，可以容忍部分节点失效，注意这里的失效是节点crash down，而不是恶意节点，其基于zookeeper进行Paxos算法选举，支持2f+1节点集群，f代表失效节点个数。BFT也是一种集群时序服务，可更进一步地可以容忍拜占庭节点，拜占庭节点是恶意节点，这些恶意节点可能会故意伪造时序数据。可以看出Fabric1.0所支持的共识时序服务机制实现了组件插件化，可以根据实际部署的不同环境进行共识实现机制的选择，从solo到kafka再到BFT，所面临的部署环境越来越复杂不可信，当然所带来不利因素可能会是时序服务处理性能上的下降
+
+
+
+fabric 1.0 版本介绍：
+https://zhuanlan.zhihu.com/p/25383775
+
+
+
+Blockchain区块链架构设计之四：Fabric多通道和下一代账本设计
+https://zhuanlan.zhihu.com/p/24605987
+
+
+仔细看，实验
+创建隧道+创世块  https://zhuanlan.zhihu.com/p/25070745
+
+
+http://www.jianshu.com/p/b4674d3f7ebd 摘要信息
+
+
+
+熟悉fabric 1.0 搭建 ： CA peer 多链  单链  之间的关系
+
+

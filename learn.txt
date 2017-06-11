@@ -3,7 +3,9 @@
 修改网卡地址：
 /sbin/ifconfig eth0 hw ether 00:0C:29:36:97:20
 使用lentern继续翻墙
-
+sudo /sbin/ifconfig enp0s25 hw ether 56:7b:9d:9c:28:22
+sudo /sbin/ifconfig enp0s25 hw ether 57:7b:9d:9c:28:22
+sudo /sbin/ifconfig enp0s25 hw ether 58:7b:9d:9c:28:22
 
 
 查找删除文件：
