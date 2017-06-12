@@ -61,3 +61,104 @@ http://www.jianshu.com/p/b4674d3f7ebd 摘要信息
 熟悉fabric 1.0 搭建 ： CA peer 多链  单链  之间的关系
 
 
+生成创世区块：
+$CONFIGTXGEN -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+根据配置文件configtx.yaml 
+创世快中包含了：
+可信根节点列表
+orderer证书
+IP地址列表
+一组特定的共识算发列表
+访问控制策略（设可以创建隧道）
+
+
+
+隧道配置文件：
+channel.tx
+configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
+根据配置文件configtx.yaml 
+
+
+
+
+
+peer：
+要启动并连接到共识服务，peer至少需要以下配置：
+
+1.准入网络的注册证书。 证书可以来自任意CA，只要CA是peer将连接到的共识服务的可信任根的一部分
+
+2.来自共识服务管理CLI生成的Orderer证书和IP地址的列表
+
+3.可信任根节点列表
+
+4.peer可以订阅的通道可选列表。 除非明确配置，否则peer在启动时不订阅任何通道
+
+注意，＃2和＃3来自引导的创世区块，我们可以从引导CLI命令获得。
+
+通过CLI或使用SDK API的应用程序，peer可以订阅已经存在的通道。 order通过在通道创建或重新配置期间收到的消息决定谁可以加入通道。
+
+具体细化SDK设置，查看：https://zhuanlan.zhihu.com/p/24605987
+
+
+fabric 1.0   2个节点：
+背书节点和共识服务节点
+
+背书节点进行交易验证和背书
+
+
+设计细节：
+https://mp.weixin.qq.com/s?__biz=MzA3NTM1ODc5Mg==&mid=2452145857&idx=1&sn=a8c52bbe7e1b9177eec7e7a896e3bd25&chksm=88add1e6bfda58f06ada59f86414cc516cc5b8ff574eeb5b30f3fe0d95dc6bc403d8486fd44a&mpshare=1&
+
+https://zhuanlan.zhihu.com/p/25119939
+
+
+
+yaml语法：
+七、引用
+锚点&和别名*，可以用来引用。
+
+defaults: &defaults
+  adapter:  postgres
+  host:     localhost
+
+development:
+  database: myapp_development
+  <<: *defaults
+
+test:
+  database: myapp_test
+  <<: *defaults
+
+等同于下面的代码:
+
+defaults:
+  adapter:  postgres
+  host:     localhost
+
+development:
+  database: myapp_development
+  adapter:  postgres
+  host:     localhost
+
+test:
+  database: myapp_test
+  adapter:  postgres
+  host:     localhost
+&用来建立锚点（defaults），<<表示合并到当前数据，*用来引用锚点。
+
+
+
+
++表示保留文字块末尾的换行，-表示删除字符串末尾的换行。
+
+
+
+
+
+
+
+
+
+
+
+
