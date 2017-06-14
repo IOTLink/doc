@@ -1,4 +1,15 @@
 
+docker abort:
+
+liuhy@liuhy ~ $ docker run hello-world
+docker: Cannot connect to the Docker daemon. Is the docker daemon running on this host?.
+
+
+add:
+sudo usermod -aG docker "liuhy"
+newgrp docker
+
+
 
 修改网卡地址：
 /sbin/ifconfig eth0 hw ether 00:0C:29:36:97:20
@@ -6,6 +17,7 @@
 sudo /sbin/ifconfig enp0s25 hw ether 56:7b:9d:9c:28:22
 sudo /sbin/ifconfig enp0s25 hw ether 57:7b:9d:9c:28:22
 sudo /sbin/ifconfig enp0s25 hw ether 58:7b:9d:9c:28:22
+sudo /sbin/ifconfig enp2s0 hw ether 4c:cc:6a:c5:31:45
 
 
 查找删除文件：
