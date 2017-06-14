@@ -1,0 +1,30 @@
+ca
+问题：
+
+liuhy@liuhy ~/work/bin/client $ 
+liuhy@liuhy ~/work/bin/client $ ./fabric-ca-client enroll -u http://admin:adminpw@127.0.0.1:7054
+2017/06/14 17:48:35 [INFO] User provided config file: /home/liuhy/.fabric-ca-client/fabric-ca-client-config.yaml
+2017/06/14 17:48:35 [INFO] generating key: &{A:ecdsa S:256}
+2017/06/14 17:48:35 [INFO] encoded CSR
+Error: POST failure [Post http://127.0.0.1:7054/enroll: malformed HTTP response "\x15\x03\x01\x00\x02\x02\x16"]; not sending
+POST http://127.0.0.1:7054/enroll
+Authorization: Basic YWRtaW46YWRtaW5wdw==
+{"hosts":["liuhy"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBOjCB4gIBADBdMQswCQYDVQQGEwJVUzEXMBUGA1UECBMOTm9ydGggQ2Fyb2xp\nbmExFDASBgNVBAoTC0h5cGVybGVkZ2VyMQ8wDQYDVQQLEwZGYWJyaWMxDjAMBgNV\nBAMTBWFkbWluMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEuiUmXR7hl4rt8KL3\nbg0JJItgRpP1zfQ9/2p+dNg9CbveG9Lq/6DVZdkTXqDs+h+hH/J9A6rHZJ4SKUXo\nRKOryqAjMCEGCSqGSIb3DQEJDjEUMBIwEAYDVR0RBAkwB4IFbGl1aHkwCgYIKoZI\nzj0EAwIDRwAwRAIgFjAPYxWzs7J7fu39adthRnig8VH+Xy+WQcKqD7AFl+ICIExm\njY9TkfPVr2mvtnKzr8dTgXmX9tEFTvk2bsVjaa6u\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","CAName":""}
+liuhy@liuhy ~/work/bin/client $ 
+liuhy@liuhy ~/work/bin/client $ 
+
+https://lists.hyperledger.org/pipermail/hyperledger-fabric/2017-May/000850.html
+
+
+
+docker 内部的ca运行加证书了：
+"fabric-ca-server start 
+--ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem 
+--ca.keyfile /etc/hyperledger/fabric-ca-server-config/657aab75a86ccc24657c6da6366c2363f203c69a569434e11d429f4c39a0649c_sk 
+-b admin:adminpw -d"
+
+
+docker对应目录：
+                "Source": "/home/liuhy/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/ca",
+                "Destination": "/etc/hyperledger/fabric-ca-server-config",
+
