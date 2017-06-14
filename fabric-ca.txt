@@ -28,3 +28,14 @@ docker对应目录：
                 "Source": "/home/liuhy/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/ca",
                 "Destination": "/etc/hyperledger/fabric-ca-server-config",
 
+old:
+fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/346db3374994291ebd1da1926adb7459c77200da62059fd94262269affeb2d85_sk -b admin:adminpw -d
+
+new:
+fabric-ca-server start -b admin:adminpw -d
+
+
+
+
+
+
