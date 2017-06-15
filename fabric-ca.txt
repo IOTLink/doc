@@ -36,6 +36,415 @@ fabric-ca-server start -b admin:adminpw -d
 
 
 
+查看证书内容：
+openssl x509 -text -in ca.org1.example.com-cert.pem 
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            c9:e6:76:93:ae:35:2d:bc:d6:42:fe:0b:54:fc:30:06
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=California, L=San Francisco, O=org1.example.com, CN=ca.org1.example.com
+        Validity
+            Not Before: Jun 15 01:13:06 2017 GMT
+            Not After : Jun 13 01:13:06 2027 GMT
+        Subject: C=US, ST=California, L=San Francisco, O=org1.example.com, CN=ca.org1.example.com
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:d0:9e:b5:c0:67:57:7a:9e:7e:cd:5f:d5:4d:28:
+                    2a:31:b0:80:44:e3:7d:b6:63:fd:59:0b:26:4d:3e:
+                    35:02:3e:b3:e1:84:0d:ef:89:e9:80:6b:21:f0:2e:
+                    ab:c3:46:06:44:d4:12:68:01:fb:f7:b5:af:6e:e8:
+                    4a:29:91:ca:b1
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment, Certificate Sign, CRL Sign
+            X509v3 Extended Key Usage: 
+                Any Extended Key Usage, TLS Web Server Authentication
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+            X509v3 Subject Key Identifier: 
+                C7:07:31:F1:D5:F8:A5:37:44:4F:D8:2D:A4:25:3C:EE:B7:A9:25:E7:F1:3B:7F:2A:FD:AA:24:24:99:D1:2A:EE
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:21:00:9c:1a:79:ca:ad:6f:ac:68:36:5a:b7:bc:69:
+         fa:9f:53:e2:2e:e6:e2:8a:02:6e:f4:ba:2a:5a:e9:ec:44:b9:
+         58:02:20:61:33:f9:b9:1b:96:27:80:1f:ef:1c:8e:7e:78:de:
+         96:ab:cf:0f:18:29:6f:f9:56:32:93:f9:10:85:84:ab:3e
+-----BEGIN CERTIFICATE-----
+MIICTjCCAfSgAwIBAgIRAMnmdpOuNS281kL+C1T8MAYwCgYIKoZIzj0EAwIwczEL
+MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG
+cmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh
+Lm9yZzEuZXhhbXBsZS5jb20wHhcNMTcwNjE1MDExMzA2WhcNMjcwNjEzMDExMzA2
+WjBzMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN
+U2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEcMBoGA1UE
+AxMTY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA
+BNCetcBnV3qefs1f1U0oKjGwgETjfbZj/VkLJk0+NQI+s+GEDe+J6YBrIfAuq8NG
+BkTUEmgB+/e1r27oSimRyrGjaTBnMA4GA1UdDwEB/wQEAwIBpjAZBgNVHSUEEjAQ
+BgRVHSUABggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCDHBzHx
+1filN0RP2C2kJTzut6kl5/E7fyr9qiQkmdEq7jAKBggqhkjOPQQDAgNIADBFAiEA
+nBp5yq1vrGg2Wre8afqfU+Iu5uKKAm70uipa6exEuVgCIGEz+bkblieAH+8cjn54
+3parzw8YKW/5VjKT+RCFhKs+
+-----END CERTIFICATE-----
+
+
+查看私钥内容：
+openssl asn1parse -i -in c70731f1d5f8a537444fd82da4253ceeb7a925e7f13b7f2afdaa242499d12aee_sk 
+    0:d=0  hl=3 l= 135 cons: SEQUENCE          
+    3:d=1  hl=2 l=   1 prim:  INTEGER           :00
+    6:d=1  hl=2 l=  19 cons:  SEQUENCE          
+    8:d=2  hl=2 l=   7 prim:   OBJECT            :id-ecPublicKey
+   17:d=2  hl=2 l=   8 prim:   OBJECT            :prime256v1
+   27:d=1  hl=2 l= 109 prim:  OCTET STRING      [HEX DUMP]:306B0201010420857CB7CC0846A3D2D4DA835C3B3DA73353AA42BB9CC5BB324070BADF8E227DCEA14403420004D09EB5C067577A9E7ECD5FD54D282A31B08044E37DB663FD590B264D3E35023EB3E1840DEF89E9806B21F02EABC3460644D4126801FBF7B5AF6EE84A2991CAB1
+
+
+
+
+老外的demo：
+1) Generate RSA key: 
+   $ openssl genrsa -out key.pem 1024 
+   $ openssl rsa -in key.pem -text -noout 
+
+2) Save public key in pub.pem file: 
+   $ openssl rsa -in key.pem -pubout -out pub.pem 
+   $ openssl rsa -in pub.pem -pubin -text -noout 
+
+3) Encrypt some data: 
+   $ echo test test test > file.txt 
+   $ openssl rsautl -encrypt -inkey pub.pem -pubin -in file.txt \ 
+        -out file.bin 
+   $ ll file.bin 
+   -rw-r--r-- 1 root root 128 2007-07-11 01:58 file.bin 
+
+4) Decrypt encrypted data: 
+   $ openssl rsautl -decrypt -inkey key.pem -in file.bin 
+   test test test 
+
+
+
+---
+或者证书的公钥
+openssl x509 -pubkey -in ca.org1.example.com-cert.pem  -out  ca.pubkey 
+
+
+提取证书公钥：
+liuhy@liuhy ~/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/ca $ openssl x509 -pubkey -in ca.org1.example.com-cert.pem  >pub.pem
+liuhy@liuhy ~/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/ca $ ls
+c70731f1d5f8a537444fd82da4253ceeb7a925e7f13b7f2afdaa242499d12aee_sk  ca.org1.example.com-cert.pem  pub.pem
+liuhy@liuhy ~/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/ca $ cat pub.pem 
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0J61wGdXep5+zV/VTSgqMbCARON9
+tmP9WQsmTT41Aj6z4YQN74npgGsh8C6rw0YGRNQSaAH797WvbuhKKZHKsQ==
+-----END PUBLIC KEY-----
+-----BEGIN CERTIFICATE-----
+MIICTjCCAfSgAwIBAgIRAMnmdpOuNS281kL+C1T8MAYwCgYIKoZIzj0EAwIwczEL
+MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG
+cmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh
+Lm9yZzEuZXhhbXBsZS5jb20wHhcNMTcwNjE1MDExMzA2WhcNMjcwNjEzMDExMzA2
+WjBzMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN
+U2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEcMBoGA1UE
+AxMTY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA
+BNCetcBnV3qefs1f1U0oKjGwgETjfbZj/VkLJk0+NQI+s+GEDe+J6YBrIfAuq8NG
+BkTUEmgB+/e1r27oSimRyrGjaTBnMA4GA1UdDwEB/wQEAwIBpjAZBgNVHSUEEjAQ
+BgRVHSUABggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCDHBzHx
+1filN0RP2C2kJTzut6kl5/E7fyr9qiQkmdEq7jAKBggqhkjOPQQDAgNIADBFAiEA
+nBp5yq1vrGg2Wre8afqfU+Iu5uKKAm70uipa6exEuVgCIGEz+bkblieAH+8cjn54
+3parzw8YKW/5VjKT+RCFhKs+
+-----END CERTIFICATE-----
+liuhy@liuhy ~/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/ca $ openssl x509 -pubkey -in ca.org1.example.com-cert.pem  -out  ca.pubkey 
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0J61wGdXep5+zV/VTSgqMbCARON9
+tmP9WQsmTT41Aj6z4YQN74npgGsh8C6rw0YGRNQSaAH797WvbuhKKZHKsQ==
+-----END PUBLIC KEY-----
+liuhy@liuhy ~/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/
+
+
+
+++++++++++++++++++
+
+OpenSSL ECDSA sign and verify file [closed]
+
+Create private key:
+
+openssl ecparam -genkey -name secp384r1 -noout -out private.pem
+Create public key:
+
+openssl ec -in private.pem -pubout -out public.pem
+
+Create signature:
+openssl dgst -ecdsa-with-SHA1 -sign private.pem test.pdf > signature.bin
+
+Verify signature:
+openssl dgst -ecdsa-with-SHA1 -verify public.pem -signature signature.bin test.pdf
+
+————————————
+
+openssl req -new -x509 -days 365 -key private.pem -out ca.pem 
+
+
+ca.pem  private.pem  public.pem  signature.bin  test.pdf
+liuhy@liuhy ~/ECDSA $ openssl x509 -text -in ca.pem 
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 9475531637997415007 (0x837fd9d23ccfaa5f)
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=AU, ST=Some-State, O=Internet Widgits Pty Ltd
+        Validity
+            Not Before: Jun 15 03:36:00 2017 GMT
+            Not After : Jun 15 03:36:00 2018 GMT
+        Subject: C=AU, ST=Some-State, O=Internet Widgits Pty Ltd
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (384 bit)
+                pub: 
+                    04:36:53:27:ab:6a:5a:4f:92:8c:5c:24:40:40:82:
+                    f0:f8:43:6e:a7:f7:8e:f3:2e:71:90:a3:c1:b3:41:
+                    8d:43:09:78:a9:fc:91:ae:72:b5:e1:b1:94:25:34:
+                    32:ef:4c:e6:6c:98:ae:7a:82:34:7d:c9:23:dc:17:
+                    e8:2e:3b:e0:9f:b5:45:bc:cb:d9:6d:10:af:d2:4f:
+                    35:bc:c6:73:1f:75:6d:fd:38:a7:64:86:ba:a6:ae:
+                    06:81:1d:a7:d8:97:54
+                ASN1 OID: secp384r1
+                NIST CURVE: P-384
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                45:35:11:32:B5:80:BC:2C:87:69:9D:72:FF:D9:09:B1:2F:AB:F9:89
+            X509v3 Authority Key Identifier: 
+                keyid:45:35:11:32:B5:80:BC:2C:87:69:9D:72:FF:D9:09:B1:2F:AB:F9:89
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: ecdsa-with-SHA256
+         30:64:02:30:2e:b1:5b:6a:3e:02:e0:36:28:0d:81:2b:58:39:
+         38:03:82:84:9d:93:60:28:a6:a5:d9:3e:3a:de:94:e2:4b:3e:
+         f9:e8:60:41:ba:b6:21:30:d2:47:99:03:00:2e:08:66:02:30:
+         71:d7:75:05:47:62:6d:1e:e2:39:5a:5a:3c:d9:c7:ee:64:5a:
+         15:62:4d:50:eb:95:66:c5:6d:d7:88:da:db:bf:b4:7c:34:d7:
+         91:e1:6d:90:fc:cb:f4:1d:fa:55:00:7c
+-----BEGIN CERTIFICATE-----
+MIICDTCCAZSgAwIBAgIJAIN/2dI8z6pfMAoGCCqGSM49BAMCMEUxCzAJBgNVBAYT
+AkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRn
+aXRzIFB0eSBMdGQwHhcNMTcwNjE1MDMzNjAwWhcNMTgwNjE1MDMzNjAwWjBFMQsw
+CQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJu
+ZXQgV2lkZ2l0cyBQdHkgTHRkMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAENlMnq2pa
+T5KMXCRAQILw+ENup/eO8y5xkKPBs0GNQwl4qfyRrnK14bGUJTQy70zmbJiueoI0
+fckj3BfoLjvgn7VFvMvZbRCv0k81vMZzH3Vt/TinZIa6pq4GgR2n2JdUo1AwTjAd
+BgNVHQ4EFgQURTURMrWAvCyHaZ1y/9kJsS+r+YkwHwYDVR0jBBgwFoAURTURMrWA
+vCyHaZ1y/9kJsS+r+YkwDAYDVR0TBAUwAwEB/zAKBggqhkjOPQQDAgNnADBkAjAu
+sVtqPgLgNigNgStYOTgDgoSdk2AopqXZPjrelOJLPvnoYEG6tiEw0keZAwAuCGYC
+MHHXdQVHYm0e4jlaWjzZx+5kWhViTVDrlWbFbdeI2tu/tHw015HhbZD8y/Qd+lUA
+fA==
+-----END CERTIFICATE-----
+liuhy@liuhy ~/ECDSA $ 
+liuhy@liuhy ~/ECDSA $ 
+liuhy@liuhy ~/ECDSA $ ls
+ca.pem  private.pem  public.pem  signature.bin  test.pdf
+liuhy@liuhy ~/ECDSA $ openssl x509 -pubkey -in ca.pem  -out  ca.pubkey 
+-----BEGIN PUBLIC KEY-----
+MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAENlMnq2paT5KMXCRAQILw+ENup/eO8y5x
+kKPBs0GNQwl4qfyRrnK14bGUJTQy70zmbJiueoI0fckj3BfoLjvgn7VFvMvZbRCv
+0k81vMZzH3Vt/TinZIa6pq4GgR2n2JdU
+-----END PUBLIC KEY-----
+liuhy@liuhy ~/ECDSA $ cat public.pem 
+-----BEGIN PUBLIC KEY-----
+MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAENlMnq2paT5KMXCRAQILw+ENup/eO8y5x
+kKPBs0GNQwl4qfyRrnK14bGUJTQy70zmbJiueoI0fckj3BfoLjvgn7VFvMvZbRCv
+0k81vMZzH3Vt/TinZIa6pq4GgR2n2JdU
+-----END PUBLIC KEY-----
+liuhy@liuhy ~/ECDSA $ 
+
+
+
+
+openssl req -new -key private.pem -out cert.csr -subj '/C=US/ST=North Carolina/L=PaloAlto/O=Hyperledger/CN=fabric-ca-server' 
+openssl x509 -req -in cert.csr -CA root.crt -CAkey server.key -out mycacert.crt -CAcreateserial
+
+
+
+————————————————————————————————————————————————————————————————————————-
+验证ca:文件：
+liuhy@liuhy ~/fabric-beta/release/linux-amd64/crypto-config/peerOrganizations/org1.example.com/ca $ tree
+.
+├── 1dbc243cf9a3a8cc6276878662f21fdf409b28b1b434c1de61bdcf5fd8c64d3c_sk
+├── ca.org1.example.com-cert.pem
+
+
+私钥文件1dbc243cf9a3a8cc6276878662f21fdf409b28b1b434c1de61bdcf5fd8c64d3c_sk ----》 改名 ca.key
+证书文件：ca.org1.example.com-cert.pem   ----》改名  ca.pubkey
+
+从证书文件ca.pubkey提取公钥信息：
+openssl x509 -pubkey -in ca.pubkey  -out  ca.pub  > ca.pubout       其中ca.pubout是公钥文件
+
+
+
+用ca的私钥文件 ca.key对test.pdf测试文件签名：
+openssl dgst -ecdsa-with-SHA1 -sign ca.key  test.pdf > signature.bin
+
+
+用ca的公钥文件验证签名：
+openssl dgst -ecdsa-with-SHA1 -verify ca.pubout  -signature signature.bin test.pdf 
+返回： Verified OK
+
+
+查看ca证书：
+openssl x509 -noout -text -in ca.pubkey 
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            63:74:b9:96:01:4e:b6:04:f6:2b:30:a7:12:c6:1a:ea
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=California, L=San Francisco, O=org1.example.com, CN=ca.org1.example.com
+        Validity
+            Not Before: Jun 15 02:59:14 2017 GMT
+            Not After : Jun 13 02:59:14 2027 GMT
+        Subject: C=US, ST=California, L=San Francisco, O=org1.example.com, CN=ca.org1.example.com
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:06:a1:84:b5:9b:b2:83:c0:33:6b:51:f4:75:5a:
+                    85:03:fc:0f:35:43:d6:ac:a0:06:e1:ba:b5:5d:3d:
+                    69:33:44:cc:7b:37:01:0d:d6:ca:41:01:88:af:82:
+                    92:17:a9:89:25:66:ba:44:c2:60:7f:04:ac:87:04:
+                    09:7c:2a:38:ed
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment, Certificate Sign, CRL Sign
+            X509v3 Extended Key Usage: 
+                Any Extended Key Usage, TLS Web Server Authentication
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+            X509v3 Subject Key Identifier: 
+                1D:BC:24:3C:F9:A3:A8:CC:62:76:87:86:62:F2:1F:DF:40:9B:28:B1:B4:34:C1:DE:61:BD:CF:5F:D8:C6:4D:3C
+    Signature Algorithm: ecdsa-with-SHA256
+         30:44:02:20:2d:96:3c:e0:5a:cb:32:ef:12:1e:85:2f:21:0b:
+         8f:4c:a4:4b:7d:51:1a:e1:b7:f8:53:69:40:46:ed:94:9b:13:
+         02:20:4f:33:13:7a:65:7d:e4:82:c0:c8:98:54:c2:c4:c5:02:
+         60:4a:21:79:e0:5c:e6:f5:23:48:d3:13:af:d2:6a:00
+
+
+
+
+怎样使用ca的公私要签名一个client证书：
+
+
+因为ca的是ECDSA算法生成的证书，所有我们也采用如同样的算法生成我们的证书：
+
+Create private key:
+openssl ecparam -genkey -name secp384r1 -noout -out client.key
+
+#Create public key:
+#openssl ec -in client.key -pubout -out clientpub.key
+
+根据私钥时候生成请求文件：
+openssl req -key client.key -new -out client.req 
+
+
+然后生成ca签名证书：
+openssl x509 -req -in client.req -CA ca.pubkey -CAkey ca.key  -CAserial file.srl -out client.pem 
+Signature ok
+
+subject=/C=US/ST=California/L=San Francisco/O=org1.example.com/OU=example.com/CN=ca.org1.example.com
+Getting CA Private Key
+
+root@6cc46987de79:/etc/hyperledger/fabric-ca-server-config/client# cat client.pem 
+-----BEGIN CERTIFICATE-----
+MIICAjCCAagCAQEwCgYIKoZIzj0EAwIwczELMAkGA1UEBhMCVVMxEzARBgNVBAgT
+CkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xGTAXBgNVBAoTEG9y
+ZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2NhLm9yZzEuZXhhbXBsZS5jb20wHhcN
+MTcwNjE1MDU1NjIyWhcNMTcwNzE1MDU1NjIyWjCBiTELMAkGA1UEBhMCVVMxEzAR
+BgNVBAgMCkNhbGlmb3JuaWExFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28xGTAXBgNV
+BAoMEG9yZzEuZXhhbXBsZS5jb20xFDASBgNVBAsMC2V4YW1wbGUuY29tMRwwGgYD
+VQQDDBNjYS5vcmcxLmV4YW1wbGUuY29tMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE
+X2SxObfGMVMF8u02yee2gDjGydXXzYqblgUip9B5KWqbSNVI5/A8DLyMeFjnQ2k1
+KPa4UnXu8dHLq979MhMi8YBGa/sQFYMV3NFGi5oXHnUFcYZY5EqtXaZzPHeH2WtW
+MAoGCCqGSM49BAMCA0gAMEUCIQCccGtmYcn70ZCDYS9gPfmIbDEdSY5wKtV97H4n
+mMV2yAIgOsRILhePmW5NpjjbWfyEuCsdjsCBTdZFkGDH514FKk8=
+-----END CERTIFICATE-----
+
+
+
+ca.pubkey  ca证书
+client.key  客户端私钥文件
+client.pem  客户端被ca签名的证书
+
+证书copy到 fabric-ca-client 同级目录下：
+
+执行：
+ ./fabric-ca-client -c ./fabric-ca-client-config.yaml enroll -u http://admin:adminpw@127.0.0.1:7054 --tls.certfiles ca.pubkey --tls.client.certfile client.pem --tls.client.keyfile client.key 
+
+返回信息：
+2017/06/15 14:04:25 [INFO] User provided config file: ./fabric-ca-client-config.yaml
+2017/06/15 14:04:25 [INFO] generating key: &{A:ecdsa S:256}
+2017/06/15 14:04:25 [INFO] encoded CSR
+Error: POST failure [Post http://127.0.0.1:7054/enroll: malformed HTTP response "\x15\x03\x01\x00\x02\x02\x16"]; not sending
+POST http://127.0.0.1:7054/enroll
+Authorization: Basic YWRtaW46YWRtaW5wdw==
+{"hosts":["liuhy"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBOzCB4gIBADBdMQswCQYDVQQGEwJVUzEXMBUGA1UECBMOTm9ydGggQ2Fyb2xp\nbmExFDASBgNVBAoTC0h5cGVybGVkZ2VyMQ8wDQYDVQQLEwZGYWJyaWMxDjAMBgNV\nBAMTBWFkbWluMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEL8GE27Nb+QrPtASB\nh3U0bY0z+HKYkp+9TKWZEB0luGhhf9DilSE1KbQ3uwS6IqLuAUvUJJh31B6RokLC\nMFf01aAjMCEGCSqGSIb3DQEJDjEUMBIwEAYDVR0RBAkwB4IFbGl1aHkwCgYIKoZI\nzj0EAwIDSAAwRQIhAMkLIuHPdNbKmXngVkbe5zaWdoIUZLMpJuuH/cL9miKtAiA+\n6k7G1sPLbYyuc5baoDkE2kbZ9z4HBO6takFVKovRAQ==\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","CAName":""}
+
+
+http----> https: 
+
+./fabric-ca-client -c ./fabric-ca-client-config.yaml enroll -u https://admin:adminpw@127.0.0.1:7054 --tls.certfiles ca.pubkey --tls.client.certfile client.pem --tls.client.keyfile client.key 
+2017/06/15 14:11:52 [INFO] User provided config file: ./fabric-ca-client-config.yaml
+2017/06/15 14:11:52 [INFO] generating key: &{A:ecdsa S:256}
+2017/06/15 14:11:52 [INFO] encoded CSR
+2017/06/15 14:11:52 [INFO] TLS Enabled
+Error: POST failure [Post https://127.0.0.1:7054/enroll: x509: cannot validate certificate for 127.0.0.1 because it doesn't contain any IP SANs]; not sending
+POST https://127.0.0.1:7054/enroll
+Authorization: Basic YWRtaW46YWRtaW5wdw==
+{"hosts":["liuhy"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBOjCB4gIBADBdMQswCQYDVQQGEwJVUzEXMBUGA1UECBMOTm9ydGggQ2Fyb2xp\nbmExFDASBgNVBAoTC0h5cGVybGVkZ2VyMQ8wDQYDVQQLEwZGYWJyaWMxDjAMBgNV\nBAMTBWFkbWluMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEGJBm1v1ONJLFYIDj\nPNz/OUjUmK+/DsO3faMyK8H/qvYX/ZA+hLnL+kC4KMnAeDR4SF2n30L4eE5OjQQD\nXrOGf6AjMCEGCSqGSIb3DQEJDjEUMBIwEAYDVR0RBAkwB4IFbGl1aHkwCgYIKoZI\nzj0EAwIDRwAwRAIgDm0UQvboqxkviSZ96S7IVWUH4Q3xrM5NABJTRzMQ0B4CIC+N\nl6MMlW52Qahc3bYaajaKJhN2dzHavZxN1v1P8qZI\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","CAName":""}
+
+
+go版本参照这个文章修改：
+http://www.tuicool.com/articles/IZza6jA
+
+
+
+
+
+参照：
+https://dst.lbl.gov/~boverhof/openssl_certs.html
+
+Generating Client/Server certificates with a local CA 
+*make sure openssl points to the correct instillation (%which openssl).  Mine is aliased to /usr/local/openssl/bin/openssl
+
+Generate a CA 
+1)    openssl req -out ca.pem -new -x509 
+        -generates CA file "ca.pem" and CA key "privkey.pem"
+
+Generate server certificate/key pair 
+        - no password required. 
+2)    openssl genrsa -out server.key 1024 
+3)    openssl req -key server.key -new -out server.req 
+4)    openssl x509 -req -in server.req -CA CA.pem -CAkey privkey.pem -CAserial file.srl -out server.pem 
+        -contents of "file.srl" is a two digit number.  eg. "00"
+
+Generate client certificate/key pair
+
+5)    Either choose to encrypt the key(a) or not(b) 
+        a. Encrypt the client key with a passphrase 
+            openssl genrsa -des3 -out client.key 1024 
+        b. Don't encrypt the client key 
+            openssl genrsa -out client.key 1024 
+6)    openssl req -key client.key -new -out client.req 
+7)    openssl x509 -req -in client.req -CA CA.pem -CAkey privkey.pem -CAserial file.srl -out client.pem 
+        -contents of "file.srl" is a two digit number.  eg. "00"
+
+8)    DONE
+
+
+
+
+
+
 
 
 
