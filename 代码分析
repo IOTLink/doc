@@ -1,0 +1,60 @@
+
+
+所有在： 测试用例的KeyImport 保存私钥的 pem编码方式保存：
+k, err := client.GetCryptoSuite().KeyImport(keyPem.Bytes, &bccsp.ECDSAPrivateKeyImportOpts{Temporary: false})
+
+
+// KeyImport imports a key from its raw representation using opts.
+// The opts argument should be appropriate for the primitive used.
+func (csp *impl) KeyImport(raw interface{}, opts bccsp.KeyImportOpts) (k bccsp.Key, err error) {
+	// Validate arguments
+	if raw == nil {
+		return nil, errors.New("Invalid raw. Cannot be nil")
+	}
+
+	if opts == nil {
+		return nil, errors.New("Invalid Opts parameter. It must not be nil.")
+	}
+
+	switch opts.(type) {
+
+	case *bccsp.AES256ImportKeyOpts:
+		aesRaw, ok := raw.([]byte)
+		if !ok {
+			return nil, errors.New("[AES256ImportKeyOpts] Invalid raw material. Expected byte array.")
+		}
+
+		if len(aesRaw) != 32 {
+			return nil, fmt.Errorf("[AES256ImportKeyOpts] Invalid Key Length [%d]. Must be 32 bytes", len(aesRaw))
+		}
+
+		aesK := &aesPrivateKey{utils.Clone(aesRaw), false}
+
+		// If the key is not Ephemeral, store it.
+		if !opts.Ephemeral() {
+			// Store the key
+			err = csp.ks.StoreKey(aesK)
+			if err != nil {
+				return nil, fmt.Errorf("Failed storing AES key [%s]", err)
+			}
+		}
+
+		return aesK, nil
+
+
+// StoreKey stores the key k in this KeyStore.
+// If this KeyStore is read only then the method will fail.
+func (ks *fileBasedKeyStore) StoreKey(k bccsp.Key) (err error) {
+
+调用：
+	case *rsaPrivateKey:
+		kk := k.(*rsaPrivateKey)
+
+		err = ks.storePrivateKey(hex.EncodeToString(k.SKI()), kk.privKey)
+
+存储：
+liuhy@liuhy /tmp $ tree
+.
+└── keystore
+    ├── 3445f15345df016ec4b6736d387fbddb49f413a03cd702fc5f2343874cbf1065_sk
+    └── 4b1a489cbc239b02efabd21a13f18fce19945b5fcf3c34e8ee3e510d685118c7_sk
