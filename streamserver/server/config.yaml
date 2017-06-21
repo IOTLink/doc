@@ -1,0 +1,4 @@
+AuthUser:
+  Admin0:
+      name: client
+      passwd: 123456
