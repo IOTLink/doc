@@ -1,0 +1,59 @@
+http://www.jianshu.com/p/a2039a8855ec
+
+flanneld -etcd-endpoints=http://192.168.1.147:2379
+
+
+liuhy@liuhy ~ $  etcdctl ls /coreos.com/network/subnets
+/coreos.com/network/subnets/172.17.66.0-24
+/coreos.com/network/subnets/172.17.12.0-24
+/coreos.com/network/subnets/172.17.32.0-24
+liuhy@liuhy ~ $ etcdctl get /coreos.com/network/subnets/172.17.66.0-24
+{"PublicIP":"192.168.1.147"}
+liuhy@liuhy ~ $ etcdctl get /coreos.com/network/subnets/172.17.12.0-24
+{"PublicIP":"192.168.1.182"}
+liuhy@liuhy ~ $ etcdctl get /coreos.com/network/subnets/172.17.32.0-24
+{"PublicIP":"192.168.1.197"}
+
+
+docker 配置文件：
+vi /etc/init/docker.conf 
+
+sudo  /usr/bin/mk-docker-opts.sh -i
+
+liuhy@liuhy ~ $ cat /run/docker_opts.env
+DOCKER_OPT_BIP="--bip=172.17.66.1/24"
+DOCKER_OPT_IPMASQ="--ip-masq=true"
+DOCKER_OPT_MTU="--mtu=1472"
+
+OPTIONS='--selinux-enabled --bip=172.17.64.1/24 --ip-masq=true --mtu=1472'
+
+DOCKER_OPTS='--bip=172.17.66.1/24 --ip-masq=true --mtu=1472'
+、、
+
+
+--------------------
+liuhy@liuhy ~ $ /usr/bin/mk-docker-opts.sh -i -d docker_opts.env -c
+liuhy@liuhy ~ $ vi /tmp/docker_opts.env 
+
+
+///
+docker 服务配置文件：
+vi /lib/systemd/system/docker.service
+
+
+EnvironmentFile=/home/liuhy/docker_opts.env
+
+
+liuhy liuhy # systemctl daemon-reload
+liuhy liuhy # systemctl restart docker
+liuhy liuhy # ifconfig
+docker0   Link encap:Ethernet  HWaddr 02:42:f8:24:9f:c7  
+          inet addr:172.17.66.1  Bcast:0.0.0.0  Mask:255.255.255.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+		  
+		  
