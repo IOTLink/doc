@@ -4,6 +4,10 @@ protoc 的使用：
 http://www.cnblogs.com/YaoDD/p/5504881.html
 protoc --go_out=plugins=grpc:. stream.pro
 
+go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+go get -u google.golang.org/grpc
+protoc --go_out=plugins=grpc:. *.proto
+
 
 pro3:
 Unrecognized syntax identifier "proto3". This parser only recognizes "proto2".
@@ -65,6 +69,7 @@ Success. You can now start the database server using:
 
 设置SUPERUSER man：
  ./createuser -U STSTEM --superuser root -h 127.0.0.1
+./createdb -U SYSTEM fabric
  ./psql -U root -d fabric  -h 127.0.0.1 -p 5432 
 
 
@@ -84,6 +89,8 @@ TEST=# \q
 objet：
 http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html
 
+查看链接数：
+select * from pg_stat_activity;
 ________________________________________________
 
 
